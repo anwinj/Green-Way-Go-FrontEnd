@@ -1,0 +1,127 @@
+<div class="w-full h-screen flex justify-between">
+    <div class="h-screen px-2 py-4 border-r-2 flex flex-col justify-between items-center">
+        <div class="h-1/5 flex flex-col justify-between items-center">
+            <img width="65px" src="../../assets/Images/logo_without_text.png" alt="">
+            <button><i class="fa-sharp fa-solid fa-chart-pie fa-2xl text-green2"></i></button>
+        </div>
+        <div>
+            <button><i class="fa-solid fa-arrow-right-from-bracket fa-xl text-zinc-400 hover:text-green2 mb-6"></i></button>
+        </div>
+    </div>
+   
+    <div class="w-9/12 h-screen p-3">
+        <!-- green commute text and buttons -->
+        <div class="w-100 h-28 px-6 flex justify-between items-baseline">
+            <div class="mt-5">
+                <p class="text-4xl font-medium">Green Commute</p>
+                <p class="text-zinc-400 text-lg mt-2 ms-2">Let's check your progress</p>
+            </div>
+            <div>
+                <app-add-commute></app-add-commute>
+                <select class="bg-gray-200 ms-4 px-5 py-2 rounded-lg mt-5 text-slate-600 focus:outline-none">
+                    <option selected disabled value="">Sort by</option>
+                    <option value="">Date</option>
+                    <option value="">Points</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flex mt-8">
+            <!--all commute -->
+            <div style="height: 585px;" class="px-6 overflow-auto">
+                <!--  card -->
+                <div style="width: 700px;" class="bg-lime-200 p-3 rounded-xl flex h-28 mb-4"> 
+                        <div class="relative">
+                            <div class="w-20 h-20 absolute z-10 flex flex-col justify-center items-center">
+                                <p>Dec</p>
+                                <p class="text-3xl font-bold">15</p>
+                            </div>
+                            <img class="drop-shadow-xl" width="90px" src="../../assets/Images/Vector 1.png" alt="">
+                        </div>
+                        <div class="flex justify-evenly-items-center py-3 px-2">
+                            <div class="border-r-2 border-zinc-300 ms-6 pe-6">
+                                <p>Activity</p>
+                                <div class="mt-2 flex justify-center items-baseline"><p class="text-lg font-bold">Cycling</p><i class="fa-solid fa-person-biking fa-2xl ms-3"></i></div>
+                            </div>
+                            <div class="border-r-2 border-zinc-300 ms-6 pe-6">
+                                <p>Kilometers done</p>
+                                <p class=" mt-2 text-lg font-bold">5 km</p>
+                            </div>
+                            <div class="border-r-2 border-zinc-300 ms-6 pe-6">
+                                <p>Total points</p>
+                                <p class=" mt-2 text-lg font-bold">10</p>
+                            </div>
+                            <div class="ms-6 flex items-center">
+                                <app-edit-commute></app-edit-commute>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+
+            <div class="flex flex-col  items-center">
+                <!-- progress section -->
+                <div style="width: 300px;" class="px-3 flex flex-col items-center">
+                    <p class="text-xl font-medium mb-3">Statistics on March</p>
+                    <img width="140px" src="../../assets/Images/progress.png" alt="">
+                    <div class="mt-4">
+                        <div class="w-64 flex justify-between items-baseline">
+                            <p class="text-zinc-500">No of commutes</p>
+                            <p class="font-bold text-green1">5</p>
+                        </div>
+                        <div class="w-64 mt-3 flex justify-between items-baseline">
+                            <p class="text-zinc-500">Total kilometes</p>
+                            <p class="font-bold text-green1">20</p>
+                        </div>
+                        <div class="w-64 mt-3 flex justify-between items-baseline">
+                            <p class="text-zinc-500">Total points</p>
+                            <p class="font-bold text-green1">100</p>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Carbon footprint section -->
+                <div style="width: 300px;" class="px-3 mt-10 flex flex-col items-center">
+                    <p class="text-xl font-medium mb-3">Carbon footprint savings</p>
+                    <img width="140px" src="../../assets/Images/co2e.png" alt="">
+                    <div class="w-64 flex justify-between items-baseline">
+                        <p class="text-zinc-500">Total CO2e saved</p>
+                        <p class="font-bold text-green1">30 kg</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- profile -->
+    <div class="profile w-1/4 flex flex-col px-6 py-12 pb-32 justify-between items-center">
+        <div class="flex flex-col items-center">
+            <img width="125px" src="../../assets/Images/profileimg.png" alt="">
+            <p class="text-slate-50 text-xl mt-5 font-medium mb-6">John Maxwell</p>
+            <app-edit-profile></app-edit-profile>
+        </div>
+        <div class="flex flex-col items-center">
+            <p class="text-slate-50 mb-3">Milestone Points:</p> 
+            <div class="milestone-container w-80 h-28 rounded-2xl p-3 flex justify-between ">
+                <div class="relative">
+                    <div class="w-20 h-20 absolute z-10 flex flex-col justify-center items-center">
+                        <p>Level</p>
+                        <p class="text-3xl font-bold">1</p>
+                    </div>
+                    <img class="drop-shadow-xl" width="90px" src="../../assets/Images/Vector 1.png" alt="">
+                </div>
+                <div class="me-2">
+                    <div class="flex justify-between mb-1 text-slate-50">
+                        <p>0</p>
+                        <p>100</p>
+                    </div>
+                    <div class="w-44 bg-gray-500 rounded-full h-2.5">
+                        <div class="bg-lime-200 h-2.5 rounded-full" style="width: 45%"></div>
+                    </div>
+                    <p class="text-slate-50 mt-5 ms-3">Total Points : 45</p>
+                </div>
+            </div>
+        </div>
+        <p class="text-2xl  text-slate-50 font-light"><i class="fa-solid fa-location-dot fa-xs"></i> Kottayam</p>
+    </div>
+</div>

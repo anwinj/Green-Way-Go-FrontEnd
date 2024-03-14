@@ -1,0 +1,8 @@
+.profile{
+    background-image: url('../../assets/Images/profile-bg.png');
+    object-fit:cover;
+}
+
+.milestone-container{
+    background: rgba(255, 255, 255, 0.2);
+}

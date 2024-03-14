@@ -1,0 +1,24 @@
+<button (click)="toggleModal()" class="bg-profileColor px-3 py-2 rounded-lg text-slate-50 font-medium">Add Commute</button>
+
+<!-- modal -->
+<div *ngIf="showModal" class="fixed inset-0 z-50 focus:outline-none flex justify-center items-center">
+  <div class="relative w-96">
+    <div class="rounded-lg shadow-lg relative flex flex-col w-full bg-white focus:outline-none">
+        <!-- close button -->
+        <div class="relative p-2">
+            <button (click)="toggleModal()" class="p-2 absolute right-2 top-2 text-slate-600 hover:bg-slate-200 "><i class="fa-solid fa-xmark fa-lg"></i></button>
+        </div>
+        <!--body-->
+        <div class="p-6 flex">
+            <p class=" text-lg">
+            I always felt like I could do anything. That's the main
+            thing people are controlled by! Thoughts- their perception
+            of themselves! They're slowed down by their perception of
+            themselves. If you're taught you can't do anything, you
+            won't do anything. I was taught I could do everything.
+            </p>
+        </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="opacity-40 fixed inset-0 z-40 bg-black"></div>`
