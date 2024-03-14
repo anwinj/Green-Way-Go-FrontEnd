@@ -18,10 +18,11 @@
             </div>
             <div>
                 <app-add-commute></app-add-commute>
-                <select class="bg-gray-200 ms-4 px-5 py-2 rounded-lg mt-5 text-slate-600 focus:outline-none">
+                <select class="bg-gray-200 ms-2 px-5 py-2 rounded-lg mt-5 text-slate-600 focus:outline-none">
                     <option selected disabled value="">Sort by</option>
                     <option value="">Date</option>
                     <option value="">Points</option>
+                    <option value="">Kilometers</option>
                 </select>
             </div>
         </div>
@@ -96,7 +97,7 @@
     <!-- profile -->
     <div class="profile w-1/4 flex flex-col px-6 py-12 pb-32 justify-between items-center">
         <div class="flex flex-col items-center">
-            <img width="125px" src="../../assets/Images/profileimg.png" alt="">
+            <img class="rounded-full" width="125px" height="125px" src="../../assets/Images/profileimg.png" alt="">
             <p class="text-slate-50 text-xl mt-5 font-medium mb-6">John Maxwell</p>
             <app-edit-profile></app-edit-profile>
         </div>

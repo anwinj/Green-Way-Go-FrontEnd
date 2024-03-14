@@ -1,1 +1,30 @@
-<button><i class="fa-regular fa-pen-to-square fa-xl"></i></button>
+<button (click)="toggleModal()" ><i class="fa-regular fa-pen-to-square fa-xl"></i></button>
+
+<!-- modal -->
+<div *ngIf="showModal" class="fixed inset-0 z-50 focus:outline-none flex justify-center items-center">
+    <div class="relative w-96">
+      <div class="rounded-lg shadow-lg relative flex flex-col w-full bg-white focus:outline-none">
+          <!-- close button -->
+          <div class="p-2 relative">
+              <button (click)="toggleModal()" class="absolute right-1 top-1 p-2 text-slate-600 hover:bg-slate-200 "><i class="fa-solid fa-xmark fa-lg"></i></button>
+          </div>
+          <!--body-->
+          <div class="p-8 flex flex-col items-center justify-center">
+              <img class="mb-3" width="140px" src="../../assets/Images/commute-edit.png" alt="">
+              <form>
+                  <select class="w-80 h-12 py-3 px-3 text-lg bg-zinc-100 focus:outline-none">
+                      <option selected disabled hidden class="text-zinc-100">Choose commute Method</option>
+                      <option value="walking">walking</option>
+                      <option value="cycling">cycling</option>
+                      <option value="publicTransport">public transport</option>
+                      <option value="carPooling">car pooling</option>
+                  </select>
+                  <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter distance in km">
+                  <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none" type="date">
+                  <button class="w-80 h-12 py-3 px-3 text-lg mt-4 text-slate-950 bg-lime-200" type="submit">Update Commute</button>
+              </form>   
+          </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showModal" class="opacity-40 fixed inset-0 z-40 bg-black"></div>`

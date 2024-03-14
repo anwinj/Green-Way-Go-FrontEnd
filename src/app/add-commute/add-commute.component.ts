@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 export class AddCommuteComponent {
 
   showModal = false;
+  
   toggleModal(){
     this.showModal = !this.showModal;
   }

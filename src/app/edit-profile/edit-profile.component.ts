@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class EditProfileComponent {
 
+  showModal = false;
+  
+  toggleModal(){
+    this.showModal = !this.showModal;
+  }
+
 }
