@@ -17,52 +17,63 @@
                 <p class="text-zinc-400 text-lg mt-2 ms-2">Let's check your progress</p>
             </div>
             <div>
-                <app-add-commute></app-add-commute>
-                <select class="bg-gray-200 ms-2 px-5 py-2 rounded-lg mt-5 text-slate-600 focus:outline-none">
-                    <option selected disabled value="">Sort by</option>
-                    <option value="">Date</option>
+                <app-add-commute (onAddCommute)="onAddCommute($event)"></app-add-commute>
+                <select class="bg-gray-200 ms-3 px-5 py-2 rounded-lg mt-5 text-slate-600 focus:outline-none">
+                    <option hidden selected disabled value="">Sort by</option>
                     <option value="">Points</option>
                     <option value="">Kilometers</option>
                 </select>
             </div>
         </div>
 
-        <div class="flex mt-8">
+        <div class="flex mt-6 flex-wrap">
             <!--all commute -->
-            <div style="height: 585px;" class="px-6 overflow-auto">
+            <div style="height: 585px;" class="px-6 overflow-y-auto overflow-x-hidden">
                 <!--  card -->
-                <div style="width: 700px;" class="bg-lime-200 p-3 rounded-xl flex h-28 mb-4"> 
+                <div *ngFor="let commute of allCommuteCopy ; let i = index" style="width: 700px;" class="bg-lime-200 p-3 rounded-xl flex h-28 mb-4"> 
                         <div class="relative">
                             <div class="w-20 h-20 absolute z-10 flex flex-col justify-center items-center">
-                                <p>Dec</p>
-                                <p class="text-3xl font-bold">15</p>
+                                <p class="text-sm">{{getMonth(commute.date)}}</p>
+                                <p class="text-2xl font-bold">{{getDay(commute.date)}}</p>
+                                <p class="text-sm">{{getYear(commute.date)}}</p>
                             </div>
                             <img class="drop-shadow-xl" width="90px" src="../../assets/Images/Vector 1.png" alt="">
                         </div>
                         <div class="flex justify-evenly-items-center py-3 px-2">
-                            <div class="border-r-2 border-zinc-300 ms-6 pe-6">
+                            <div class="border-r-2 border-zinc-300 ms-4 pe-4 w-40">
                                 <p>Activity</p>
-                                <div class="mt-2 flex justify-center items-baseline"><p class="text-lg font-bold">Cycling</p><i class="fa-solid fa-person-biking fa-2xl ms-3"></i></div>
+                                <div class="mt-2 flex items-center">
+                                    <p class="text-md font-bold max-w-24 me-3">{{commute.commuteMethod}}</p>
+                                    <div *ngIf="commute.commuteMethod==='Cycling'" ><i class="fa-solid fa-person-biking fa-2xl"></i></div>
+                                    <div *ngIf="commute.commuteMethod==='Walking'" ><i class="fa-solid fa-person-walking fa-2xl"></i></div>
+                                    <div *ngIf="commute.commuteMethod==='Electric car'" ><i class="fa-solid fa-car fa-2xl text-green1"></i></div>
+                                    <div *ngIf="commute.commuteMethod==='Car pooling'" ><i class="fa-solid fa-car-side fa-2xl"></i></div>
+                                    <div *ngIf="commute.commuteMethod==='Public transport'" ><i class="fa-solid fa-train-subway fa-2xl"></i></div>
+                                </div>
                             </div>
                             <div class="border-r-2 border-zinc-300 ms-6 pe-6">
                                 <p>Kilometers done</p>
-                                <p class=" mt-2 text-lg font-bold">5 km</p>
+                                <p class=" mt-2 text-lg font-bold">{{commute.kilometers}} km</p>
                             </div>
                             <div class="border-r-2 border-zinc-300 ms-6 pe-6">
                                 <p>Total points</p>
-                                <p class=" mt-2 text-lg font-bold">10</p>
+                                <p class=" mt-2 text-lg font-bold">{{commute.points}}</p>
                             </div>
                             <div class="ms-6 flex items-center">
-                                <app-edit-commute></app-edit-commute>
+                               <button (click)="deleteCommute(commute._id)" ><i class="fa-regular fa-trash-can fa-lg text-red-500"></i></button> 
                             </div>
                         </div>
                 </div>
 
+                <div *ngIf="allCommuteCopy.length==0" style="width: 700px;">
+                    <p class="text-lime-600 text-lg ms-2">No commutes added yet!!! Please add...</p>
+                </div>
+
             </div>
 
-            <div class="flex flex-col  items-center">
+            <div class="ms-2 flex flex-col items-center">
                 <!-- progress section -->
-                <div style="width: 300px;" class="px-3 flex flex-col items-center">
+                <div style="width: 280px;" class="px-3 flex flex-col items-center">
                     <p class="text-xl font-medium mb-3">Statistics on March</p>
                     <img width="140px" src="../../assets/Images/progress.png" alt="">
                     <div class="mt-4">
@@ -82,7 +93,7 @@
                 </div>
     
                 <!-- Carbon footprint section -->
-                <div style="width: 300px;" class="px-3 mt-10 flex flex-col items-center">
+                <div style="width: 280px;" class="px-3 mt-10 flex flex-col items-center">
                     <p class="text-xl font-medium mb-3">Carbon footprint savings</p>
                     <img width="140px" src="../../assets/Images/co2e.png" alt="">
                     <div class="w-64 flex justify-between items-baseline">
@@ -98,7 +109,7 @@
     <div class="profile w-1/4 flex flex-col px-6 py-12 pb-32 justify-between items-center">
         <div class="flex flex-col items-center">
             <img class="rounded-full" width="125px" height="125px" src="../../assets/Images/profileimg.png" alt="">
-            <p class="text-slate-50 text-xl mt-5 font-medium mb-6">John Maxwell</p>
+            <p class="text-slate-50 text-xl mt-5 font-medium mb-6">{{userDetails.username}}</p>
             <app-edit-profile></app-edit-profile>
         </div>
         <div class="flex flex-col items-center">
@@ -123,6 +134,7 @@
                 </div>
             </div>
         </div>
-        <p class="text-2xl  text-slate-50 font-light"><i class="fa-solid fa-location-dot fa-xs"></i> Kottayam</p>
+        <p *ngIf="userDetails.location" class="text-2xl  text-slate-50 font-light"><i class="fa-solid fa-location-dot fa-xs"></i> {{userDetails.location}}</p>
+        <p *ngIf="userDetails.location?.length==0" class="text-2xl  text-slate-50 font-light"><i class="fa-solid fa-location-dot fa-xs"></i> Location</p>
     </div>
 </div>

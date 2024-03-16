@@ -11,20 +11,22 @@
         <!--body-->
         <div class="p-8 flex flex-col items-center justify-center">
             <img class="mb-3" width="200px" src="../../assets/Images/commute-img.png" alt="">
-            <form>
-                <select class="w-80 h-12 py-3 px-3 text-lg bg-zinc-100 focus:outline-none">
-                    <option selected disabled hidden class="text-zinc-100">Choose commute Method</option>
-                    <option value="walking">walking</option>
-                    <option value="cycling">cycling</option>
-                    <option value="publicTransport">public transport</option>
-                    <option value="carPooling">car pooling</option>
+            <form [formGroup]="addCommuteForm">
+                <select name="commuteMethod" formControlName="commuteMethod" class="w-80 h-12 py-3 mt-3 px-3 text-lg bg-zinc-100 focus:outline-none">
+                    <option value=null selected hidden disabled>Choose your commute</option>
+                    <option value="Walking">Walking</option>
+                    <option value="Cycling">Cycling</option>
+                    <option value="Electric car">Electric Car</option>
+                    <option value="Public transport">Public transport</option>
+                    <option value="Car pooling">Car pooling</option>
                 </select>
-                <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter distance in km">
-                <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none" type="date">
-                <button class="w-80 h-12 py-3 px-3 text-lg mt-4 text-slate-950 bg-lime-200" type="submit">Add Commute</button>
+                <input name="kilometers" formControlName="kilometers" class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter distance in km">
+                <input name="date"  formControlName="date"  class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none" type="date" [max]="maxDate">
+                <button (click)="handleAddCommute()" class="w-80 h-12 py-3 px-3 text-lg mt-4 text-slate-950 bg-lime-200" type="submit">Add Commute</button>
             </form>   
         </div>
     </div>
   </div>
 </div>
-<div *ngIf="showModal" class="opacity-40 fixed inset-0 z-40 bg-black"></div>`
+<div *ngIf="showModal" class="opacity-40 fixed inset-0 z-40 bg-black"></div>
+

@@ -9,7 +9,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddCommuteComponent } from './add-commute/add-commute.component';
 import { RegisterComponent } from './register/register.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { EditCommuteComponent } from './edit-commute/edit-commute.component';
+import { HttpClientModule } from '@angular/common/http'
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgToastModule } from 'ng-angular-popup';
+
 
 @NgModule({
   declarations: [
@@ -20,11 +23,13 @@ import { EditCommuteComponent } from './edit-commute/edit-commute.component';
     DashboardComponent,
     AddCommuteComponent,
     EditProfileComponent,
-    EditCommuteComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgToastModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
