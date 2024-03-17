@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ApiService {
 
   // server url
-  SERVER_URL:string = "http://localhost:3000"
+  SERVER_URL:string = "https://green-way-go-backend.onrender.com"
 
   constructor(private http:HttpClient) { }
 
@@ -62,6 +62,10 @@ export class ApiService {
       headers = headers.set('Authorization',`Bearer ${token}`);
     }
     return this.http.put(`${this.SERVER_URL}/edit-user`,reqBody,{headers})
+  }
+
+  isLoggedIn(){
+    return !!sessionStorage.getItem("token")
   }
 
 }

@@ -73,7 +73,7 @@ export class EditProfileComponent {
   }
 
   handleUpdate(){
-    if(this.updateProfileForm.valid){
+    if(this.updateProfileForm.valid && this.userProfile){
 
       const username = this.updateProfileForm.value.username
       const email = this.updateProfileForm.value.email
