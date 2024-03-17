@@ -1,4 +1,5 @@
-<button (click)="toggleModal()" class="py-2 px-8 rounded-full bg-slate-50 text-profileColor"><i class="fa-regular fa-pen-to-square me-2"></i>Edit Profile</button>
+<button (click)="viewModal()" class="py-2 px-8 rounded-full bg-slate-50 text-profileColor"><i class="fa-regular fa-pen-to-square me-2"></i>Edit Profile</button>
+
 
 <!-- modal -->
 <div *ngIf="showModal" class="fixed inset-0 z-50 focus:outline-none flex justify-center items-center">
@@ -6,20 +7,26 @@
       <div class="rounded-lg shadow-lg relative flex flex-col w-full bg-white focus:outline-none">
           <!-- close button -->
           <div class="p-2 relative">
-              <button (click)="toggleModal()" class="absolute right-1 top-1 p-2 text-slate-600 hover:bg-slate-200 "><i class="fa-solid fa-xmark fa-lg"></i></button>
+              <button (click)="closeModal()" class="absolute right-1 top-1 p-2 text-slate-600 hover:bg-slate-200 "><i class="fa-solid fa-xmark fa-lg"></i></button>
           </div>
           <!--body-->
           <div class="p-8 flex flex-col items-center justify-center">
-              <form>
+              <form [formGroup]="updateProfileForm">
                   <label class="flex justify-center">
-                    <input type="file" hidden>
-                    <img class="rounded-full" width="125px" height="125px" src="../../assets/Images/profileimg.png" alt="">
+                    <input (change)="getFile($event)" type="file" hidden>
+                    <div *ngIf="!profileUpdateStatus">
+                      <img *ngIf="!userDetails.profile" class="rounded-full" width="125px" height="125px" src={{profilePicture}} alt="">
+                      <img *ngIf="userDetails.profile" class="rounded-full" width="125px" height="125px" src="{{SERVER_URL}}/uploads/{{userDetails.profile}}" alt="">
+                    </div>
+                    <div *ngIf="profileUpdateStatus">
+                      <img class="rounded-full" width="125px" height="125px" src={{profilePicture}} alt="">
+                    </div>
                   </label>
-                  <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter your username">
-                  <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="email" placeholder="Enter your email">
-                  <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="password" placeholder="Enter your Password">
-                  <input class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter your location">
-                  <button class="w-80 h-12 py-3 px-3 text-lg mt-4 text-slate-950 bg-lime-200" type="submit">Update Profile</button>
+                  <input name="username" formControlName="username" class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter your username">
+                  <input name="email" formControlName="email" class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="email" placeholder="Enter your email">
+                  <input name="password" formControlName="password" class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter your password">
+                  <input name="location" formControlName="location" class="w-80 h-12 py-3 px-3 text-lg mt-4 bg-zinc-100 focus:outline-none placeholder:text-slate-950"  type="text" placeholder="Enter your location">
+                  <button (click)="handleUpdate()" class="w-80 h-12 py-3 px-3 text-lg mt-4 text-slate-950 bg-lime-200" type="submit">Update Profile</button>
               </form>   
           </div>
       </div>

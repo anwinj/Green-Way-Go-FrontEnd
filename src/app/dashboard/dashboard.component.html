@@ -5,7 +5,7 @@
             <button><i class="fa-sharp fa-solid fa-chart-pie fa-2xl text-green2"></i></button>
         </div>
         <div>
-            <button><i class="fa-solid fa-arrow-right-from-bracket fa-xl text-zinc-400 hover:text-green2 mb-6"></i></button>
+            <button (click)="Logout()"><i class="fa-solid fa-arrow-right-from-bracket fa-xl text-zinc-400 hover:text-green2 mb-6"></i></button>
         </div>
     </div>
    
@@ -18,22 +18,25 @@
             </div>
             <div>
                 <app-add-commute (onAddCommute)="onAddCommute($event)"></app-add-commute>
-                <select class="bg-gray-200 ms-3 px-5 py-2 rounded-lg mt-5 text-slate-600 focus:outline-none">
-                    <option hidden selected disabled value="">Sort by</option>
-                    <option value="">Points</option>
-                    <option value="">Kilometers</option>
-                </select>
             </div>
         </div>
 
-        <div class="flex mt-6 flex-wrap">
+        <div class="flex mt-4 flex-wrap">
             <!--all commute -->
-            <div style="height: 585px;" class="px-6 overflow-y-auto overflow-x-hidden">
+            <div style="height: 590px;" class="px-6 overflow-y-auto overflow-x-hidden">
+                <div class="flex justify-center items-center mb-4">
+                    <button (click)="setCategoryKey('')" class="px-3 py-1 bg-lime-100 rounded-md font-bold text-green1 me-2">All</button>
+                    <button (click)="setCategoryKey('Walking')" class="px-3 py-1 bg-lime-100 rounded-md font-bold text-green1 me-2">Walking</button>
+                    <button (click)="setCategoryKey('Cycling')" class="px-3 py-1 bg-lime-100 rounded-md font-bold text-green1 me-2">Cycling</button>
+                    <button (click)="setCategoryKey('Electric car')" class="px-3 py-1 bg-lime-100 rounded-md font-bold text-green1 me-2">Electric car</button>
+                    <button (click)="setCategoryKey('Public transport')" class="px-3 py-1 bg-lime-100 rounded-md font-bold text-green1 me-2">Public transport</button>
+                    <button (click)="setCategoryKey('Car pooling')" class="px-3 py-1 bg-lime-100 rounded-md font-bold text-green1 me-2">Car pooling</button>
+                </div>
                 <!--  card -->
-                <div *ngFor="let commute of allCommuteCopy ; let i = index" style="width: 700px;" class="bg-lime-200 p-3 rounded-xl flex h-28 mb-4"> 
+                <div *ngFor="let commute of allCommuteCopy | category:categoryKey ; let i = index" style="width: 700px;" class="bg-lime-200 p-3 rounded-xl flex h-28 mb-4"> 
                         <div class="relative">
                             <div class="w-20 h-20 absolute z-10 flex flex-col justify-center items-center">
-                                <p class="text-sm">{{getMonth(commute.date)}}</p>
+                                <p class="text-sm">{{getMonthInfo(commute.date)}}</p>
                                 <p class="text-2xl font-bold">{{getDay(commute.date)}}</p>
                                 <p class="text-sm">{{getYear(commute.date)}}</p>
                             </div>
@@ -65,8 +68,8 @@
                         </div>
                 </div>
 
-                <div *ngIf="allCommuteCopy.length==0" style="width: 700px;">
-                    <p class="text-lime-600 text-lg ms-2">No commutes added yet!!! Please add...</p>
+                <div *ngIf="(allCommuteCopy | category:categoryKey).length==0" style="width: 695px;">
+                    <p class="text-lime-600 text-lg ms-2 mt-6">No commutes added yet!!! Please add...</p>
                 </div>
 
             </div>
@@ -74,20 +77,20 @@
             <div class="ms-2 flex flex-col items-center">
                 <!-- progress section -->
                 <div style="width: 280px;" class="px-3 flex flex-col items-center">
-                    <p class="text-xl font-medium mb-3">Statistics on March</p>
+                    <p class="text-xl font-medium mb-3">Statistics on {{monthInfo.month}}</p>
                     <img width="140px" src="../../assets/Images/progress.png" alt="">
                     <div class="mt-4">
                         <div class="w-64 flex justify-between items-baseline">
                             <p class="text-zinc-500">No of commutes</p>
-                            <p class="font-bold text-green1">5</p>
+                            <p class="font-bold text-green1">{{monthInfo.noOfCommutes}}</p>
                         </div>
                         <div class="w-64 mt-3 flex justify-between items-baseline">
                             <p class="text-zinc-500">Total kilometes</p>
-                            <p class="font-bold text-green1">20</p>
+                            <p class="font-bold text-green1">{{monthInfo.totalKilometers}}</p>
                         </div>
                         <div class="w-64 mt-3 flex justify-between items-baseline">
                             <p class="text-zinc-500">Total points</p>
-                            <p class="font-bold text-green1">100</p>
+                            <p class="font-bold text-green1">{{monthInfo.monthPoints}}</p>
                         </div>
                     </div>
                 </div>
@@ -98,7 +101,7 @@
                     <img width="140px" src="../../assets/Images/co2e.png" alt="">
                     <div class="w-64 flex justify-between items-baseline">
                         <p class="text-zinc-500">Total CO2e saved</p>
-                        <p class="font-bold text-green1">30 kg</p>
+                        <p class="font-bold text-green1">{{co2esaved}} kg</p>
                     </div>
                 </div>
             </div>
@@ -108,9 +111,10 @@
     <!-- profile -->
     <div class="profile w-1/4 flex flex-col px-6 py-12 pb-32 justify-between items-center">
         <div class="flex flex-col items-center">
-            <img class="rounded-full" width="125px" height="125px" src="../../assets/Images/profileimg.png" alt="">
+            <img *ngIf="!userDetails.profile"  class="rounded-full" width="125px" height="125px" src="https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg?w=740&t=st=1709116294~exp=1709116894~hmac=6d3f4c643a3e86247f8749cab2d42a0e936662a75578b8bc3e9735f44cdc98a5" alt="">
+            <img *ngIf="userDetails.profile" class="rounded-full" width="125px" height="125px" src="{{SERVER_URL}}/uploads/{{userDetails.profile}}" alt="">
             <p class="text-slate-50 text-xl mt-5 font-medium mb-6">{{userDetails.username}}</p>
-            <app-edit-profile></app-edit-profile>
+            <app-edit-profile (onUserUpdate)="onUserUpdate($event)"></app-edit-profile>
         </div>
         <div class="flex flex-col items-center">
             <p class="text-slate-50 mb-3">Milestone Points:</p> 
@@ -118,19 +122,19 @@
                 <div class="relative">
                     <div class="w-20 h-20 absolute z-10 flex flex-col justify-center items-center">
                         <p>Level</p>
-                        <p class="text-3xl font-bold">1</p>
+                        <p class="text-3xl font-bold">{{milestone.level}}</p>
                     </div>
                     <img class="drop-shadow-xl" width="90px" src="../../assets/Images/Vector 1.png" alt="">
                 </div>
                 <div class="me-2">
                     <div class="flex justify-between mb-1 text-slate-50">
-                        <p>0</p>
-                        <p>100</p>
+                        <p>{{milestone.lowerLimit}}</p>
+                        <p>{{milestone.upperLimit}}</p>
                     </div>
                     <div class="w-44 bg-gray-500 rounded-full h-2.5">
-                        <div class="bg-lime-200 h-2.5 rounded-full" style="width: 45%"></div>
+                        <div class="bg-lime-200 h-2.5 rounded-full" [style.width]="milestone.barValue+'%'" ></div>
                     </div>
-                    <p class="text-slate-50 mt-5 ms-3">Total Points : 45</p>
+                    <p class="text-slate-50 mt-5 ms-3">Total Points : {{totalPoints}}</p>
                 </div>
             </div>
         </div>

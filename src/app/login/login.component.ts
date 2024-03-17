@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   loginForm = this.fb.group({
-    email:['',[Validators.required,Validators.email]],
-    password:['',[Validators.required,Validators.pattern('[a-zA-Z0-9 ]*')]]
+    email:['',[Validators.required]],
+    password:['',[Validators.required]]
   })
 
   constructor(private fb:FormBuilder, private api:ApiService, private toast:NgToastService, private router:Router){}

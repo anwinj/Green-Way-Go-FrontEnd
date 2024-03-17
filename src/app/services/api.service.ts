@@ -24,7 +24,7 @@ export class ApiService {
     const token = sessionStorage.getItem("token")
     let headers = new HttpHeaders
     if(token){
-      headers = headers.append("Authorization",`Beares ${token}`)
+      headers = headers.append("Authorization",`Bearer ${token}`)
     }
     return {headers}
   }
@@ -43,6 +43,25 @@ export class ApiService {
 
   deleteCommuteAPI(id:string){
     return this.http.delete(`${this.SERVER_URL}/delete-commute/${id}`,this.appendTokenHeader())
+  }
+
+  updateUserDetails(user:any){
+    // reqBody
+    const reqBody = new FormData()
+    reqBody.append("username",user.username)
+    reqBody.append("email",user.email)
+    reqBody.append("password",user.password)
+    reqBody.append("location",user.location)
+    reqBody.append("profile",user.profile)
+
+    // reqHeader
+    const token = sessionStorage.getItem("token")
+    let headers = new HttpHeaders();
+    // headers = headers.set('Content-Type','multipart/form-data');
+    if(token){
+      headers = headers.set('Authorization',`Bearer ${token}`);
+    }
+    return this.http.put(`${this.SERVER_URL}/edit-user`,reqBody,{headers})
   }
 
 }

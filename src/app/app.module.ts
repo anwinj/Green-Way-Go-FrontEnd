@@ -12,6 +12,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgToastModule } from 'ng-angular-popup';
+import { CategoryPipe } from './pipes/category.pipe';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { NgToastModule } from 'ng-angular-popup';
     DashboardComponent,
     AddCommuteComponent,
     EditProfileComponent,
+    CategoryPipe,
   ],
   imports: [
     BrowserModule,
